@@ -22,13 +22,13 @@ export default function Home() {
       return false;
     }
     
-    if (target.length < 27) {
-      setError("Target for Lovable URL must be at least 27 characters long.");
+    if (target.length < 29) {
+      setError("Target for Lovable URL must be at least 29 characters long.");
       return false;
     }
     
-    if (source.length < 27) {
-      setError("Source URL must be at least 27 characters long.");
+    if (source.length < 29) {
+      setError("Source URL must be at least 29 characters long.");
       return false;
     }
     
@@ -36,9 +36,9 @@ export default function Home() {
   };
 
   const generateCommands = (targetRepo: string, sourceRepo: string): string => {
-    // Remove first 27 characters as specified
-    const revisedTargetRepo = targetRepo.substring(27);
-    const revisedSourceRepo = sourceRepo.substring(27);
+    // Remove first 29 characters as specified
+    const revisedTargetRepo = targetRepo.substring(29);
+    const revisedSourceRepo = sourceRepo.substring(29);
     
     return `git clone ${targetRepo}.git
 cd ${revisedTargetRepo}
@@ -213,7 +213,7 @@ git clone ${targetRepo}.git && git clone ${sourceRepo}.git && rsync -av --exclud
           </CardHeader>
           <CardContent>
             <div className="text-blue-800 space-y-2 text-sm">
-              <p>• The tool removes the first 27 characters from each repository URL to extract the repository name</p>
+              <p>• The tool removes the first 29 characters from each repository URL to extract the repository name</p>
               <p>• It generates a series of Git commands to migrate content from source to target repository</p>
               <p>• The generated commands will clear the target repository and copy all files from the source</p>
               <p>• Make sure both repository URLs are valid and accessible</p>
