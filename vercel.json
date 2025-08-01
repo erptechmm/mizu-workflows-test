@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "builds": [
     {
-      "src": "client/package.json",
+      "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist/public"
@@ -20,7 +20,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "client/dist/public/$1"
+      "dest": "/dist/public/$1"
     }
   ]
 }
