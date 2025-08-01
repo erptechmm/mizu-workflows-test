@@ -22,13 +22,16 @@ export default function Home() {
       return false;
     }
     
-    if (target.length < 29) {
-      setError("Target for Lovable URL must be at least 29 characters long.");
+    const targetSlashes = (target.match(/\//g) || []).length;
+    const sourceSlashes = (source.match(/\//g) || []).length;
+    
+    if (targetSlashes < 4) {
+      setError("Target for Lovable URL must contain at least 4 forward slashes (/).");
       return false;
     }
     
-    if (source.length < 29) {
-      setError("Source URL must be at least 29 characters long.");
+    if (sourceSlashes < 4) {
+      setError("Source URL must contain at least 4 forward slashes (/).");
       return false;
     }
     
@@ -36,9 +39,17 @@ export default function Home() {
   };
 
   const generateCommands = (targetRepo: string, sourceRepo: string): string => {
-    // Remove first 29 characters as specified
-    const revisedTargetRepo = targetRepo.substring(29);
-    const revisedSourceRepo = sourceRepo.substring(29);
+    // Extract text after the fourth "/" as specified
+    const getTextAfterFourthSlash = (url: string): string => {
+      const parts = url.split('/');
+      if (parts.length > 4) {
+        return parts.slice(4).join('/');
+      }
+      return '';
+    };
+    
+    const revisedTargetRepo = getTextAfterFourthSlash(targetRepo);
+    const revisedSourceRepo = getTextAfterFourthSlash(sourceRepo);
     
     return `git clone ${targetRepo}.git
 cd ${revisedTargetRepo}
@@ -213,7 +224,7 @@ git clone ${targetRepo}.git && git clone ${sourceRepo}.git && rsync -av --exclud
           </CardHeader>
           <CardContent>
             <div className="text-blue-800 space-y-2 text-sm">
-              <p>• The tool removes the first 29 characters from each repository URL to extract the repository name</p>
+              <p>• The tool extracts the text that comes after the fourth forward slash (/) in each repository URL</p>
               <p>• It generates a series of Git commands to migrate content from source to target repository</p>
               <p>• The generated commands will clear the target repository and copy all files from the source</p>
               <p>• Make sure both repository URLs are valid and accessible</p>
