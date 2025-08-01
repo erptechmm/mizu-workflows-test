@@ -99,28 +99,34 @@ git clone ${targetRepo}.git && git clone ${sourceRepo}.git && rsync -av --exclud
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 py-4">
+      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50 py-6 shadow-sm">
         <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-2xl font-semibold text-gray-900 flex items-center">
-            <GitBranch className="text-blue-500 mr-3 h-6 w-6" />
-            Git Command Generator
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent flex items-center">
+            <GitBranch className="text-blue-500 mr-3 h-8 w-8" />
+            Git Replace Command
           </h1>
-          <p className="text-gray-600 mt-1">Generate Git commands for repository migration and setup</p>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Input Form */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle>Repository Configuration</CardTitle>
+        <Card className="mb-6 shadow-lg border-0 bg-white/90 backdrop-blur-sm">
+          <CardHeader className="pb-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+              <div className="w-3 h-3 rounded-full bg-purple-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="space-y-8">
             {/* Target for Lovable Input */}
-            <div className="space-y-2">
-              <Label htmlFor="targetInput">Target for Lovable</Label>
+            <div className="space-y-3">
+              <Label htmlFor="targetInput" className="text-lg font-semibold text-gray-700 flex items-center">
+                <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div>
+                Target for Lovable
+              </Label>
               <Input
                 id="targetInput"
                 type="text"
@@ -130,14 +136,17 @@ git clone ${targetRepo}.git && git clone ${sourceRepo}.git && rsync -av --exclud
                   setTargetRepo(e.target.value);
                   handleInputChange();
                 }}
-                className="w-full"
+                className="w-full h-12 text-base border-2 border-gray-200 focus:border-blue-500 rounded-lg transition-colors"
               />
-              <p className="text-xs text-gray-500">Enter the target repository URL</p>
+              <p className="text-sm text-gray-500 ml-1">Enter the target repository URL</p>
             </div>
 
             {/* Source Input */}
-            <div className="space-y-2">
-              <Label htmlFor="sourceInput">Source</Label>
+            <div className="space-y-3">
+              <Label htmlFor="sourceInput" className="text-lg font-semibold text-gray-700 flex items-center">
+                <div className="w-2 h-2 rounded-full bg-purple-500 mr-2"></div>
+                Source
+              </Label>
               <Input
                 id="sourceInput"
                 type="text"
@@ -147,9 +156,9 @@ git clone ${targetRepo}.git && git clone ${sourceRepo}.git && rsync -av --exclud
                   setSourceRepo(e.target.value);
                   handleInputChange();
                 }}
-                className="w-full"
+                className="w-full h-12 text-base border-2 border-gray-200 focus:border-purple-500 rounded-lg transition-colors"
               />
-              <p className="text-xs text-gray-500">Enter the source repository URL</p>
+              <p className="text-sm text-gray-500 ml-1">Enter the source repository URL</p>
             </div>
 
             {/* Error Messages */}
@@ -164,16 +173,16 @@ git clone ${targetRepo}.git && git clone ${sourceRepo}.git && rsync -av --exclud
             <Button 
               onClick={handleConvert}
               disabled={isLoading}
-              className="w-full"
+              className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transform hover:scale-[1.02] transition-all duration-200 shadow-lg"
             >
               {isLoading ? (
                 <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
                   Converting...
                 </>
               ) : (
                 <>
-                  <GitBranch className="mr-2 h-4 w-4" />
+                  <GitBranch className="mr-3 h-5 w-5" />
                   Convert
                 </>
               )}
@@ -183,14 +192,18 @@ git clone ${targetRepo}.git && git clone ${sourceRepo}.git && rsync -av --exclud
 
         {/* Output Section */}
         {isOutputVisible && (
-          <Card className="mb-6">
+          <Card className="mb-6 shadow-xl border-0 bg-white/95 backdrop-blur-sm">
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Generated Git Commands</CardTitle>
+                <CardTitle className="text-xl font-bold text-gray-800 flex items-center">
+                  <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                  Generated Git Commands
+                </CardTitle>
                 <Button
                   onClick={handleCopy}
                   variant="outline"
                   size="sm"
+                  className="border-2 hover:bg-green-50 hover:border-green-500 transition-colors"
                 >
                   <Copy className="mr-1.5 h-4 w-4" />
                   Copy
@@ -198,16 +211,16 @@ git clone ${targetRepo}.git && git clone ${sourceRepo}.git && rsync -av --exclud
               </div>
             </CardHeader>
             <CardContent>
-              <div className="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-                <pre className="text-green-400 text-sm font-mono whitespace-pre-wrap">
+              <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-6 overflow-x-auto border border-gray-700 shadow-inner">
+                <pre className="text-green-400 text-sm font-mono whitespace-pre-wrap leading-relaxed">
                   {generatedCommands}
                 </pre>
               </div>
               
-              <Alert className="mt-4 border-amber-200 bg-amber-50">
-                <AlertTriangle className="h-4 w-4 text-amber-500" />
-                <AlertDescription className="text-amber-800">
-                  <span className="font-medium">Important:</span> These commands will delete all files in the target repository and replace them with files from the source repository. Make sure you have backups before executing.
+              <Alert className="mt-6 border-2 border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 rounded-lg">
+                <AlertTriangle className="h-5 w-5 text-amber-600" />
+                <AlertDescription className="text-amber-800 text-base">
+                  <span className="font-semibold">Important:</span> These commands will delete all files in the target repository and replace them with files from the source repository. Make sure you have backups before executing.
                 </AlertDescription>
               </Alert>
             </CardContent>
@@ -215,19 +228,31 @@ git clone ${targetRepo}.git && git clone ${sourceRepo}.git && rsync -av --exclud
         )}
 
         {/* Instructions */}
-        <Card className="border-blue-200 bg-blue-50">
+        <Card className="border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-lg">
           <CardHeader>
-            <CardTitle className="text-blue-900 flex items-center">
-              <Info className="mr-2 h-5 w-5" />
+            <CardTitle className="text-blue-900 flex items-center text-lg font-bold">
+              <Info className="mr-3 h-6 w-6 text-blue-600" />
               How it works
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-blue-800 space-y-2 text-sm">
-              <p>• The tool extracts the text that comes after the fourth forward slash (/) in each repository URL</p>
-              <p>• It generates a series of Git commands to migrate content from source to target repository</p>
-              <p>• The generated commands will clear the target repository and copy all files from the source</p>
-              <p>• Make sure both repository URLs are valid and accessible</p>
+            <div className="text-blue-800 space-y-3 text-base">
+              <div className="flex items-start">
+                <div className="w-2 h-2 rounded-full bg-blue-500 mt-2 mr-3 flex-shrink-0"></div>
+                <p>The tool extracts the text that comes after the fourth forward slash (/) in each repository URL</p>
+              </div>
+              <div className="flex items-start">
+                <div className="w-2 h-2 rounded-full bg-blue-500 mt-2 mr-3 flex-shrink-0"></div>
+                <p>It generates a series of Git commands to migrate content from source to target repository</p>
+              </div>
+              <div className="flex items-start">
+                <div className="w-2 h-2 rounded-full bg-blue-500 mt-2 mr-3 flex-shrink-0"></div>
+                <p>The generated commands will clear the target repository and copy all files from the source</p>
+              </div>
+              <div className="flex items-start">
+                <div className="w-2 h-2 rounded-full bg-blue-500 mt-2 mr-3 flex-shrink-0"></div>
+                <p>Make sure both repository URLs are valid and accessible</p>
+              </div>
             </div>
           </CardContent>
         </Card>

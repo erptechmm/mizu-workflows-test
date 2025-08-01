@@ -1,8 +1,8 @@
-# Git Command Generator
+# Git Replace Command
 
 ## Overview
 
-This is a React-based web application that generates Git commands for repository migration and setup. The application allows users to input target and source repository URLs and generates formatted Git command sequences to migrate code between repositories.
+This is a React-based web application that generates Git commands for repository replacement. The application allows users to input target and source repository URLs and generates formatted Git command sequences to replace content in repositories. The app features a modern, visually appealing UI with gradient backgrounds and glass-morphism effects.
 
 ## User Preferences
 
